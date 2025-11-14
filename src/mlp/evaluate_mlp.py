@@ -5,7 +5,7 @@ import torch.nn as nn
 import torch.optim as optim
 from sklearn.metrics import balanced_accuracy_score, f1_score, roc_auc_score
 
-def evaluate_nn(model, data_loader, threshold: float = 0.5) -> dict:
+def evaluate_mlp(model, data_loader, threshold: float = 0.5) -> dict:
     model.eval()
     probs_list = []
     y_list = []
@@ -35,7 +35,7 @@ def evaluate_nn(model, data_loader, threshold: float = 0.5) -> dict:
     return metrics
 
 
-def evaluate_models(models: Dict[str, nn.Module], data_loader, threshold: float = 0.5):
+def evaluate_mlps(models: Dict[str, nn.Module], data_loader, threshold: float = 0.5):
     for name, model in models.items():
         print(f"--- {name} ---")
-        evaluate_nn(model, data_loader, threshold)
+        evaluate_mlp(model, data_loader, threshold)

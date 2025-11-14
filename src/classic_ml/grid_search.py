@@ -3,7 +3,7 @@ import pandas as pd
 from sklearn.model_selection import GridSearchCV, RandomizedSearchCV
 from sklearn.pipeline import Pipeline
 
-def search_best(pipes: Dict[str, Pipeline], X_train: pd.DataFrame, y_train: pd.Series, random_state: int) -> Dict[str, Pipeline]:
+def grid_search(pipes: Dict[str, Pipeline], X_train: pd.DataFrame, y_train: pd.Series, random_state: int) -> Dict[str, Pipeline]:
     best = {}
     # RF
     rf_cv = GridSearchCV(
