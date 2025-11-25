@@ -1,6 +1,13 @@
 from matplotlib import pyplot as plt
 
 def plot_mlp_training_loss(mlp, train_loss_list):
+    """
+    Plots the training loss for multiple MLP models.
+    
+    Args:
+        mlp (dict): Dictionary of {name: model}.
+        train_loss_list (dict): Dictionary of {name: list_of_losses}.
+    """
     fig, axs = plt.subplots(nrows=2, ncols=2, figsize = (10, 8))  
     for i, (name, model) in enumerate(mlp.items()):
         r = i // 2   

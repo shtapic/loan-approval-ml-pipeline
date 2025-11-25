@@ -3,6 +3,16 @@ import pandas as pd
 from sklearn.metrics import balanced_accuracy_score, f1_score, roc_auc_score
 
 def evaluate_pipes(models: Dict[str, object], X_test: pd.DataFrame, y_test: pd.Series, threshold: float = 0.5) -> None:
+    """
+    Evaluates a dictionary of models on the test set.
+    Prints Balanced Accuracy, F1-macro, and ROC-AUC.
+    
+    Args:
+        models (Dict[str, object]): Dictionary of trained models.
+        X_test (pd.DataFrame): Test features.
+        y_test (pd.Series): Test target.
+        threshold (float): Classification threshold (not explicitly used here as predict() uses default 0.5).
+    """
     for name, m in models.items():
         y_pred = m.predict(X_test)
         try:

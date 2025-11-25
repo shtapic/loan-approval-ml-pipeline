@@ -4,6 +4,18 @@ from sklearn.model_selection import GridSearchCV, RandomizedSearchCV
 from sklearn.pipeline import Pipeline
 
 def grid_search(pipes: Dict[str, Pipeline], X_train: pd.DataFrame, y_train: pd.Series, random_state: int) -> Dict[str, Pipeline]:
+    """
+    Performs hyperparameter search (GridSearch or RandomizedSearch) for the given pipelines.
+    
+    Args:
+        pipes (Dict[str, Pipeline]): Dictionary of pipelines to tune.
+        X_train (pd.DataFrame): Training features.
+        y_train (pd.Series): Training target.
+        random_state (int): Random seed.
+        
+    Returns:
+        Dict[str, Pipeline]: Dictionary of best estimators found.
+    """
     best = {}
     # RF
     rf_cv = GridSearchCV(

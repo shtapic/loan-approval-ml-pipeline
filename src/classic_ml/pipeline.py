@@ -8,6 +8,18 @@ from lightgbm import LGBMClassifier
 
 
 def make_pipelines(numerical: List[str], categorical: List[str], random_state: int) -> Dict[str, Pipeline]:
+    """
+    Creates a dictionary of sklearn Pipelines for different models (RF, LR, LGBM).
+    Each pipeline includes the appropriate preprocessor and classifier.
+    
+    Args:
+        numerical (List[str]): List of numerical column names.
+        categorical (List[str]): List of categorical column names.
+        random_state (int): Random seed for reproducibility.
+        
+    Returns:
+        Dict[str, Pipeline]: Dictionary with keys 'rf', 'lr', 'lgbm'.
+    """
     preproc_for_tree = build_transformer_for_tree(categorical)
     preproc_for_regression = build_transformer_for_regression(numerical, categorical)
 

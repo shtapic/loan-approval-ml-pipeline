@@ -6,6 +6,17 @@ import torch.optim as optim
 from sklearn.metrics import balanced_accuracy_score, f1_score, roc_auc_score
 
 def evaluate_mlp(model, data_loader, threshold: float = 0.5) -> dict:
+    """
+    Evaluates a single MLP model on the provided data loader.
+    
+    Args:
+        model (nn.Module): The PyTorch model to evaluate.
+        data_loader (DataLoader): DataLoader containing the evaluation data.
+        threshold (float): Threshold for binary classification.
+        
+    Returns:
+        dict: Dictionary containing evaluation metrics (balanced_accuracy, f1_macro, roc_auc).
+    """
     model.eval()
     probs_list = []
     y_list = []
@@ -36,6 +47,14 @@ def evaluate_mlp(model, data_loader, threshold: float = 0.5) -> dict:
 
 
 def evaluate_mlps(models: Dict[str, nn.Module], data_loader, threshold: float = 0.5):
+    """
+    Evaluates multiple MLP models.
+    
+    Args:
+        models (Dict[str, nn.Module]): Dictionary of {name: model}.
+        data_loader (DataLoader): DataLoader containing the evaluation data.
+        threshold (float): Threshold for binary classification.
+    """
     for name, model in models.items():
         print(f"--- {name} ---")
         evaluate_mlp(model, data_loader, threshold)

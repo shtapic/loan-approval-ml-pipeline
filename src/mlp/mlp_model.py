@@ -6,6 +6,15 @@ from torch.utils.data import DataLoader, TensorDataset
 from typing import List
 
 class MLPClassifier(nn.Module):
+    """
+    A simple Multi-Layer Perceptron (MLP) classifier.
+    
+    Args:
+        input_dim (int): Number of input features.
+        hidden_dim (List[int]): List of hidden layer dimensions.
+        output_dim (int): Number of output neurons (default: 1).
+        dropout (float): Dropout probability (default: 0.5).
+    """
     def __init__(self, input_dim: int, hidden_dim: List[int], output_dim: int = 1, dropout: float = 0.5):
         super(MLPClassifier, self).__init__()
         layers = []
@@ -23,5 +32,14 @@ class MLPClassifier(nn.Module):
         self.network = nn.Sequential(*layers)
 
     def forward(self, x):
+        """
+        Forward pass of the MLP.
+        
+        Args:
+            x (torch.Tensor): Input tensor.
+            
+        Returns:
+            torch.Tensor: Output tensor (logits).
+        """
         return self.network(x)
 

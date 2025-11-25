@@ -8,6 +8,19 @@ import numpy as np
 
 
 def train_mlp(model, train_loader, num_epochs: int = 50, lr: float = 0.001, weight: float = 0.9) -> list[int]:
+    """
+    Trains a single MLP model using BCEWithLogitsLoss and Adam optimizer.
+    
+    Args:
+        model (nn.Module): The PyTorch model to train.
+        train_loader (DataLoader): DataLoader for training data.
+        num_epochs (int): Number of training epochs.
+        lr (float): Learning rate.
+        weight (float): Positive class weight for loss function.
+        
+    Returns:
+        list[float]: List of average loss values per epoch.
+    """
     criterion = nn.BCEWithLogitsLoss(pos_weight=torch.tensor([weight]))
     optimizer = optim.Adam(model.parameters(), lr=lr)
     scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=10, gamma=0.1)
@@ -26,7 +39,9 @@ def train_mlp(model, train_loader, num_epochs: int = 50, lr: float = 0.001, weig
 
         
         scheduler.step()
-        loss.append(epoch_loss / len(train_loader))
+        current_loss = epoch_loss / len(train_loader)
+        loss.append(current_loss)
+        
         if (epoch + 1) % 5 == 0:
             print(f'Epoch [{epoch+1}/{num_epochs}], Loss: {loss[-1]:.4f}')
 
@@ -34,6 +49,19 @@ def train_mlp(model, train_loader, num_epochs: int = 50, lr: float = 0.001, weig
 
 
 def train_all_mlps(mlp: dict, train_loader: DataLoader, weight: float, n_epochs: int, lr: float) -> dict:
+    """
+    Trains multiple MLP models provided in a dictionary.
+    
+    Args:
+        mlp (dict): Dictionary of {name: model}.
+        train_loader (DataLoader): DataLoader for training data.
+        weight (float): Positive class weight.
+        n_epochs (int): Number of epochs.
+        lr (float): Learning rate.
+        
+    Returns:
+        dict: Dictionary of {name: loss_history_list}.
+    """
     train_loss_list = {}
     for name, model in mlp.items():
         print(f"Training model: {name}")
